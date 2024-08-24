@@ -1,9 +1,12 @@
 import { createRoot } from 'react-dom/client'
 import Browser from 'webextension-polyfill'
+import { allowWindowMessaging } from 'webext-bridge/content-script'
 import FloatButton from './views/FloatButton'
-import { runCodeInWorldScripts } from '@/utils'
+import { WEB_EXT_MSG_ID } from '@/shared/env'
 
-(async () => {
+allowWindowMessaging(WEB_EXT_MSG_ID)
+
+;(async () => {
   const container = document.createElement('div')
   container.style.all = 'initial !important'
   const shadowRoot = container.attachShadow({ mode: 'open' })
@@ -20,11 +23,3 @@ import { runCodeInWorldScripts } from '@/utils'
 
   document.body.appendChild(container)
 })()
-
-// 和world脚本通信
-runCodeInWorldScripts((a: string) => {
-  return `top window: ${window.____inject_data}\ninput args:${a}`
-}, ['input']).then((res) => {
-  // eslint-disable-next-line no-console
-  console.log(`run code rs\n${res}`)
-})

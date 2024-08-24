@@ -1,27 +1,13 @@
-// 在网页的window对象上运行，与main.ts的window对象不同
-// 这里可以用来搞js注入或劫持，下面这个可以在top window里取到
+import { onMessage, setNamespace } from 'webext-bridge/window'
+import './world-inject/index'
+import { WEB_EXT_MSG_ID } from '@/shared/env'
 
-window.____inject_data = 'hello world'
+setNamespace(WEB_EXT_MSG_ID)
 
-window.addEventListener('ext-req', async (e) => {
-  const { type, data } = (e as any).detail
+onMessage('run-code', async ({ data }) => {
+  // eslint-disable-next-line no-new-func
+  const fn = new Function(`return (${data.function})(...arguments)`)
+  const rs = await fn(...(data.args ?? []))
 
-  switch (type) {
-    case 'run-code': {
-      // eslint-disable-next-line no-new-func
-      const fn = new Function(`return (${data.function})(...arguments)`)
-
-      const rs = await fn(...(data.args ?? []))
-      sendExtResponse(type, rs)
-      break
-    }
-  }
+  return rs
 })
-
-function sendExtResponse(type: string, data: any) {
-  window.dispatchEvent(
-    new CustomEvent('ext-res', {
-      detail: { type, data },
-    }),
-  )
-}

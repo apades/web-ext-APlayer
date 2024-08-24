@@ -1,2 +1,1 @@
-// eslint-disable-next-line no-console
-console.log('run bg')
+import 'webext-bridge/background'

@@ -1,13 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
+    "incremental": false,
+    "target": "es2016",
     "jsx": "react-jsx",
-    "lib": [
-      "DOM",
-      "ESNext",
-      "DOM.Iterable"
-    ],
-    "experimentalDecorators": true,
+    "lib": ["DOM", "ESNext"],
     "baseUrl": ".",
     "module": "ESNext",
     "moduleResolution": "node",
@@ -17,17 +13,11 @@
     "resolveJsonModule": true,
     "allowJs": true,
     "strict": true,
-    "noImplicitAny": true,
-    "downlevelIteration": true,
+    "noUnusedLocals": true,
     "outDir": "./dist/",
-    "sourceMap": true,
-    "allowSyntheticDefaultImports": true
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
   },
-  "include": [
-    "./src/**/*",
-    "./scripts/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["dist", "node_modules"]
 }
