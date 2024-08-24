@@ -1,16 +1,16 @@
 {
-  "name": "web-ext-template",
-  "version": "1.0.0",
-  "description": "",
+  "name": "web-ext-aplayer",
+  "version": "0.0.1",
+  "description": "Control music player by extension popup, all tab, or new picture in picture.",
   "author": "apades",
   "license": "ISC",
   "homepage": "https://github.com/apad/web-ext-template",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/apad/web-ext-template.git"
+    "url": "git+https://github.com/apades/web-ext-APlayer.git"
   },
   "bugs": {
-    "url": "https://github.com/apad/web-ext-template/issues"
+    "url": "https://github.com/apades/web-ext-APlayer/issues"
   },
   "keywords": [],
   "engines": {
