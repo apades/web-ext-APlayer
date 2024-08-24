@@ -23,7 +23,8 @@
     "release": "node ./scripts/release.mjs",
     "archive": "node ./scripts/archive.mjs",
     "postinstall": "simple-git-hooks",
-    "lint": "eslint --cache ."
+    "lint": "eslint --cache .",
+    "update-template": "git merge template/master --allow-unrelated-histories"
   },
   "dependencies": {
     "react": "^18.3.1",
