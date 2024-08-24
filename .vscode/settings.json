@@ -1,0 +1,16 @@
+{
+  "eslint.codeAction.disableRuleComment": {
+    "enable": true
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "vue"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "files.associations": {
+    "*.css": "postcss"
+  }
+}
