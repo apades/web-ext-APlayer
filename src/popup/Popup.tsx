@@ -1,19 +1,13 @@
 import type { FC } from 'react'
-import { useState } from 'react'
+import Browser from 'webextension-polyfill'
+import AudioPlayer from '@/ui/AudioPlayer'
 
 const Popup: FC = () => {
-  const [count, setCount] = useState(0)
   return (
-    (
-      <div
-        style={{ width: 100, padding: 6 }}
-        onClick={() => {
-          setCount(c => c + 1)
-        }}
-      >
-        {count}
-      </div>
-    )
+    <div className="w-[300px]">
+      <link type="text/css" rel="stylesheet" href={Browser.runtime.getURL('style.css')} />
+      <AudioPlayer />
+    </div>
   )
 }
 

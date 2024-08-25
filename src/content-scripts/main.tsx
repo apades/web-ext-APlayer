@@ -1,12 +1,11 @@
 import { createRoot } from 'react-dom/client'
 import Browser from 'webextension-polyfill'
-import { allowWindowMessaging } from 'webext-bridge/content-script'
+import { onMessage, sendMessage } from 'webext-bridge/content-script'
 import FloatButton from './views/FloatButton'
-import { WEB_EXT_MSG_ID } from '@/shared/env'
+import { csOnMessage, csSendMessage } from '@/utils/messager/csMessager'
+import type { TPlayerEvents } from '@/types/data'
 
-allowWindowMessaging(WEB_EXT_MSG_ID)
-
-;(async () => {
+(async () => {
   const container = document.createElement('div')
   container.style.all = 'initial !important'
   const shadowRoot = container.attachShadow({ mode: 'open' })
@@ -23,3 +22,28 @@ allowWindowMessaging(WEB_EXT_MSG_ID)
 
   document.body.appendChild(container)
 })()
+
+const wdToPopupBridgeMessages: (keyof TPlayerEvents)[] = [
+  'wap-get-data',
+  'wap-init',
+  'wap-info-update',
+]
+wdToPopupBridgeMessages.forEach((msg) => {
+  csOnMessage(msg, (data) => {
+    sendMessage(msg, data, 'popup')
+  })
+})
+
+const popupToWdBridgeMessages: (keyof TPlayerEvents)[] = [
+  'ap-init',
+  'ap-prev-track',
+  'ap-next-track',
+  'ap-pause',
+  'ap-play',
+  'ap-seeked',
+]
+popupToWdBridgeMessages.forEach((msg) => {
+  onMessage(msg, ({ data }) => {
+    csSendMessage(msg, data)
+  })
+})
